@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Карта культур: Казахстан — Китай / AGRICOM 2026</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#F4F3EE; --surface:#FFFFFF; --surface-2:#FAF9F5;
+    --ink:#1A1D21; --muted:#5C646E; --faint:#8A929B; --line:#E5E3DC;
+    --china:#C62A1B; --china-track:#F0D2CD;
+    --exp:#1C8C74; --exp-track:#D6EBE5;
+    --kz:#C98410; --kz-soft:#F6E4C4; --rest:#E4E7EA;
+    --accent:#14304A; --good:#2E7D5B;
+    --shadow:0 1px 2px rgba(20,25,30,.06),0 8px 24px rgba(20,25,30,.05);
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+    --bg:#141619; --surface:#1E2126; --surface-2:#191C20;
+    --ink:#ECEDEF; --muted:#9AA3AD; --faint:#6B747E; --line:#2C3137;
+    --china:#E5533F; --china-track:#40241F;
+    --exp:#37B394; --exp-track:#1B3730;
+    --kz:#E3AC48; --kz-soft:#3A2E17; --rest:#2A3037;
+    --accent:#8FB4D6; --good:#4FB286;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#141619; --surface:#1E2126; --surface-2:#191C20;
+    --ink:#ECEDEF; --muted:#9AA3AD; --faint:#6B747E; --line:#2C3137;
+    --china:#E5533F; --china-track:#40241F;
+    --exp:#37B394; --exp-track:#1B3730;
+    --kz:#E3AC48; --kz-soft:#3A2E17; --rest:#2A3037;
+    --accent:#8FB4D6; --good:#4FB286;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased;margin:0;}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0 44px;}
+  h1,h2,h3,.num{font-family:"Archivo","IBM Plex Sans",sans-serif;}
+  [hidden]{display:none!important;}
+
+  header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);}
+  .top .wrap{padding-block:14px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  h1{font-size:20px;font-weight:800;margin:2px 0 0;letter-spacing:-.01em;}
+  .themebtn{margin-left:auto;appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-family:"IBM Plex Mono";}
+  .lede{color:var(--muted);font-size:14px;max-width:66ch;margin:14px 0 4px;}
+  .srcline{color:var(--faint);font-size:12px;margin:8px 0 2px;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 0;font-size:12px;color:var(--muted);}
+  .legend b{display:inline-flex;align-items:center;gap:6px;font-weight:500;}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;}
+  .sw-china{background:var(--china)} .sw-exp{background:var(--exp)} .sw-kz{background:var(--kz)}
+
+  .sechead{font-family:"Archivo";font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:26px 0 2px;display:flex;align-items:center;gap:10px;}
+  .sechead:after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 6px;}
+  .tab{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:"Archivo",sans-serif;font-weight:600;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;transition:.15s;display:flex;gap:8px;align-items:center;}
+  .tab:hover{color:var(--ink);border-color:var(--exp);}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .tab .dot{width:8px;height:8px;border-radius:2px;background:var(--kz);}
+  .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;margin-top:12px;display:grid;grid-template-columns:1.1fr 1fr;gap:26px;scroll-margin-top:80px;}
+  .hero .kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .hero h2{font-size:26px;font-weight:800;margin:6px 0 0;letter-spacing:-.01em;text-wrap:balance;}
+  .hero .take{color:var(--muted);font-size:15px;margin-top:12px;max-width:46ch;}
+  .bignum{display:flex;align-items:baseline;gap:10px;margin-top:8px;}
+  .bignum b{font-family:"Archivo";font-weight:800;font-size:64px;line-height:.9;color:var(--china);letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .bignum b.kz{color:var(--kz);} .bignum b.exp{color:var(--exp);} .bignum b.ink{color:var(--ink);}
+  .bignum span{color:var(--muted);font-size:15px;max-width:18ch;}
+  .splitbar{margin-top:16px;height:28px;border-radius:8px;overflow:hidden;display:flex;background:var(--rest);border:1px solid var(--line);}
+  .splitbar .china{background:var(--china);height:100%;display:flex;align-items:center;padding-left:10px;color:#fff;font-weight:700;font-size:13px;font-family:"Archivo";min-width:0;transition:width .5s cubic-bezier(.2,.7,.2,1);}
+  .splitlbl{display:flex;justify-content:space-between;font-size:12px;color:var(--faint);margin-top:6px;}
+
+  .badge{font-family:"Archivo";font-weight:700;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;}
+  .badge.strong{color:var(--kz);background:var(--kz-soft);border-color:transparent;}
+  .badge.growing{color:var(--exp);background:var(--exp-track);border-color:transparent;}
+  .badge.niche{color:var(--faint);background:var(--surface-2);}
+  .badge.context{color:var(--faint);background:var(--surface-2);}
+  .cat{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);}
+  .card h3{font-size:13px;font-weight:700;letter-spacing:.02em;margin:0 0 3px;}
+  .card .sub{color:var(--faint);font-size:12px;margin-bottom:14px;}
+
+  .vs{display:flex;flex-direction:column;gap:14px;margin-top:6px;}
+  .vsrow{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:12px;}
+  .vsrow .lab{font-size:13px;color:var(--muted);}
+  .vsbar{height:32px;border-radius:7px;position:relative;display:flex;align-items:center;transition:width .5s cubic-bezier(.2,.7,.2,1);min-width:2px;}
+  .vsbar.prod{background:var(--exp);} .vsbar.imp{background:var(--china);}
+  .vsbar b{position:absolute;right:-8px;transform:translateX(100%);color:var(--ink);font-family:"Archivo";font-weight:700;font-size:14px;white-space:nowrap;}
+  .vsbar.full b{right:10px;transform:none;color:#fff;}
+
+  .plist{display:flex;flex-direction:column;gap:9px;}
+  .prow{display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:10px;}
+  .prow .c{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .prow .track{height:16px;background:var(--exp-track);border-radius:5px;overflow:hidden;}
+  .prow .fill{height:100%;background:var(--exp);border-radius:5px;transition:width .5s cubic-bezier(.2,.7,.2,1);}
+  .prow.kz .c{color:var(--kz);font-weight:600;} .prow.kz .fill{background:var(--kz);}
+  .prow .v{font-family:"Archivo";font-weight:600;font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .caption{color:var(--faint);font-size:12px;margin-top:12px;font-style:italic;}
+
+  .kzstrip{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;background:var(--kz-soft);border:1px solid var(--line);border-left:4px solid var(--kz);border-radius:12px;padding:14px 16px;}
+  .kzstrip .flag{font-family:"Archivo";font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--kz);white-space:nowrap;padding-top:1px;}
+  .kzstrip p{margin:0;font-size:14.5px;color:var(--ink);font-weight:500;}
+
+  .stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 15px;}
+  .stat .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600;}
+  .stat .v{font-family:"Archivo";font-weight:800;font-size:23px;margin-top:5px;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+  .stat.china .v{color:var(--china);} .stat.kz .v{color:var(--kz);}
+  .stat .u{font-size:12px;color:var(--muted);font-family:"IBM Plex Sans";font-weight:500;}
+
+  .access{grid-column:1/-1;display:flex;gap:10px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 15px;font-size:13.5px;color:var(--ink);}
+  .access .t{font-family:"Archivo";font-weight:800;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);white-space:nowrap;}
+
+  .lever{grid-column:1/-1;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--china);border-radius:12px;padding:15px 17px;box-shadow:var(--shadow);}
+  .lever .head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .lever .tag{font-family:"Archivo";font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--china);}
+  .chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--line);border-radius:9px;padding:7px 12px;background:var(--surface-2);}
+  .chip .t{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;}
+  .chip .m{font-family:"Archivo";font-weight:700;font-size:15px;margin-top:1px;}
+  .chip.before .m{color:var(--exp);} .chip.after .m{color:var(--china);}
+  .arrow{color:var(--faint);font-size:20px;font-weight:700;}
+  .lever p{margin:10px 0 0;font-size:14px;color:var(--ink);}
+
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px;align-items:center;}
+  .fchip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:13px;font-weight:500;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .fchip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .fchip:hover{color:var(--ink);}
+  .fchip[aria-pressed="true"]:hover{color:#fff;}
+
+  .cardgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
+  .mini{text-align:left;appearance:none;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px;cursor:pointer;box-shadow:var(--shadow);transition:.15s;display:flex;flex-direction:column;gap:7px;min-height:0;color:var(--ink);font-family:inherit;}
+  .mini:hover{border-color:var(--exp);transform:translateY(-2px);}
+  .mini.on{border-color:var(--kz);box-shadow:0 0 0 2px var(--kz-soft),var(--shadow);}
+  .mini .mtop{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .mini .mname{font-family:"Archivo";font-weight:700;font-size:15.5px;letter-spacing:-.01em;}
+  .mini .mmetric{font-family:"Archivo";font-weight:800;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;}
+  .mini .mmetric.china{color:var(--china);} .mini .mmetric.kz{color:var(--kz);} .mini .mmetric.exp{color:var(--exp);} .mini .mmetric.ink{color:var(--ink);}
+  .mini .mlbl{font-size:11.5px;color:var(--faint);line-height:1.3;}
+  .mini .mkz{font-size:12.5px;color:var(--muted);line-height:1.35;border-top:1px solid var(--line);padding-top:7px;margin-top:1px;}
+  .mini .mkz b{color:var(--kz);font-weight:600;}
+
+  footer{margin-top:28px;color:var(--faint);font-size:12px;border-top:1px solid var(--line);padding-top:16px;}
+  footer .src{font-family:"IBM Plex Mono";line-height:1.7;}
+
+  @media (max-width:860px){ .cardgrid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr;gap:16px;padding:18px;} .bignum b{font-size:52px;}
+    .grid{grid-template-columns:1fr;} .stats{grid-template-columns:repeat(2,1fr);}
+    .prow{grid-template-columns:100px 1fr auto;} .kzstrip{flex-direction:column;align-items:flex-start;gap:4px;}
+  }
+  @media (max-width:460px){ .cardgrid{grid-template-columns:1fr;} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div><div class="eyebrow">Казахстан — Китай · AGRICOM 2026</div><h1>Карта культур: спрос Китая и возможности Казахстана</h1></div>
+    <button class="themebtn" id="theme" type="button">тема</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="lede"><b>Сколько Китай производит, какой объём импортирует, откуда — и где в этом возможности для Казахстана.</b></p>
+  <p class="srcline">Данные — оценки за последние сезоны. Источники: USDA, FAOSTAT, World Bank WITS и отраслевая статистика.</p>
+  <div class="legend">
+    <b><i class="sw-china"></i>Китай — покупатель</b>
+    <b><i class="sw-exp"></i>Конкуренты / поставщики</b>
+    <b><i class="sw-kz"></i>Казахстан</b>
+  </div>
+
+  <div class="sechead">Ядро — ключевые культуры</div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <section class="hero" id="hero">
+    <div>
+      <div class="kicker"><span id="h-kicker">Спрос Китая</span><span class="badge" id="h-badge"></span></div>
+      <h2 id="h-crop">—</h2>
+      <div class="bignum"><b id="h-share">—</b><span id="h-sharelbl"></span></div>
+      <div class="splitbar" id="h-splitwrap"><div class="china" id="h-split"></div></div>
+      <div class="splitlbl" id="h-splitlbl"><span>Китай</span><span>остальной мир</span></div>
+    </div>
+    <div style="align-self:center"><p class="take" id="h-take">—</p></div>
+  </section>
+
+  <div class="grid">
+    <div class="card" id="c-vs">
+      <h3>Китай: производство vs импорт</h3>
+      <div class="sub">млн тонн</div>
+      <div class="vs">
+        <div class="vsrow"><div class="lab">Производство</div><div class="vsbar prod" id="vs-prod"><b></b></div></div>
+        <div class="vsrow"><div class="lab">Импорт</div><div class="vsbar imp" id="vs-imp"><b></b></div></div>
+      </div>
+      <div class="caption" id="vs-cap"></div>
+    </div>
+
+    <div class="card" id="c-sup">
+      <h3 id="sup-h">Кто поставляет / конкурирует</h3>
+      <div class="sub" id="sup-sub">млн тонн</div>
+      <div class="plist" id="plist"></div>
+      <div class="caption" id="sup-cap">Экспортёров на каждую культуру немного, и любой из них заменим. Незаменим — покупатель.</div>
+    </div>
+
+    <div class="kzstrip"><span class="flag">Где Казахстан</span><p id="kz-line">—</p></div>
+
+    <div class="access"><span class="t">Доступ</span><span id="access-line">—</span></div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="lever" id="lever" hidden>
+      <div class="head">
+        <span class="tag">Рычаг в деле</span>
+        <div class="chips">
+          <div class="chip before"><div class="t" id="lv-bt"></div><div class="m" id="lv-bm"></div></div>
+          <span class="arrow">→</span>
+          <div class="chip after"><div class="t" id="lv-at"></div><div class="m" id="lv-am"></div></div>
+        </div>
+      </div>
+      <p id="lever-txt"></p>
+    </div>
+  </div>
+
+  <div class="sechead">Все разрешённые позиции</div>
+  <div class="filterbar" id="filters"></div>
+  <div class="cardgrid" id="cardgrid"></div>
+
+  <footer>
+    <div id="foot-note" style="margin-bottom:8px;color:var(--muted)"></div>
+    <div class="src">Источники: USDA FAS (PSD, GAIN China, World Markets &amp; Trade), FAOSTAT, World Bank WITS / UN Comtrade, отраслевые данные (UkrAgroConsult, DYM Resources, Tridge, IndexBox, Зерновой союз РК); экспорт КЗ → КНР по пшенице, льну, ячменю и кормовой муке — по маркетинговым годам 2018/19–2025/26 (сент.–авг.). Значения — оценки за последние сезоны; отдельные цифры приблизительны и приведены для сравнения соотношений. Перед публичным использованием сверьте с первоисточником. Обновлено: сентябрь 2026.</div>
+  </footer>
+</div>
+
+<script>
+// tone: china|kz|exp|ink ; window(win): strong|growing|niche|context ; cat: grain|oil|pulse|proc
+const DATA = {
+  soy:{ name:"Соя", cat:"oil", tier:"core", win:"context",
+    metric:{big:"56%", tone:"china", lbl:"мировой торговли соей приходится на Китай — покупателя такого масштаба на рынке больше нет"},
+    worldProd:410, chinaProd:20, chinaImp:100, impShare:56,
+    take:"Средневзвешенный объём импорта Китая за последние 5 лет — около 100 млн т, это ~56% всей мировой торговли соей (59,5% в 2025 по данным DCE); при этом сам Китай производит лишь 5% мирового объёма.",
+    supLabel:"Крупнейшие экспортёры сои", supUnit:"млн т · общий объём экспорта в разрезе стран",
+    suppliers:[["Бразилия",92],["США",52],["Парагвай",6],["Канада",4.5],["Уругвай",2.5]],
+    kz:"Казахстан сою не экспортирует, но спрос на сою — это по сути спрос на корма.",
+    access:"Соя‑бобы допущены; фитосанитарный протокол действует.",
+    note:"Доля Китая по данным презентации DCE: 59,5% в 2025, ~56% средневзвешенно за 5 лет; импорт 2025 — 111,8 млн т. Экспортёры — по бобам (Аргентина крупна в шроте/масле)." },
+
+  wheat:{ name:"Пшеница", cat:"grain", tier:"core", win:"context",
+    metric:{big:"5%", tone:"china", lbl:"мировой торговли пшеницей приходится на Китай — по хлебу он обеспечивает себя сам"},
+    worldProd:785, chinaProd:137, chinaImp:10, impShare:5,
+    take:"Крупнейший мировой производитель. Даже по средневзвешенному объёму за последние 5 лет импорт — около 5% мировой торговли: по пшенице Китай самообеспечен, а ввоз идёт исключительно через государственные корпорации COFCO/Sinograin.",
+    supLabel:"Крупнейшие экспортёры пшеницы", supUnit:"млн т · общий объём экспорта в разрезе стран",
+    suppliers:[["Россия",43],["ЕС",30],["Канада",25],["Австралия",23],["США",21]],
+    kz:"Нишевый экспортёр вне мирового топ‑5. Поставки мукомольной пшеницы в КНР упали с 617 тыс. т (2023/24) до 43 тыс. т (2025/26): зерно всё больше уходит в Китай в виде кормовой муки.",
+    access:"Объём импорта в рамках тарифной квоты — 9,64 млн т (всё остальное +65%); ~90% квоты — за госкомпаниями (COFCO/Sinograin).",
+    note:"ЕС показан как единый блок. Импорт пшеницы КНР сильно колеблется: 3,5 млн т в 2024/25 против рекордных 13,6 в 2023/24. Экспорт мукомольной пшеницы КЗ → КНР (сент.–авг.): 2023/24 — 617 тыс. т; 2024/25 — 179; 2025/26 — 43 тыс. т." },
+
+  barley:{ name:"Ячмень", cat:"grain", tier:"core", win:"growing",
+    metric:{big:"31%", tone:"china", lbl:"мировой торговли ячменём приходится на Китай — и квоты на него нет"},
+    worldProd:150, chinaProd:2, chinaImp:10, impShare:31,
+    take:"Своё производство скромное — около 2 млн т, а импорт один из крупнейших в мире. Квоты (TRQ) нет — это «самая открытая дверь» для казахстанского ячменя, но и самый конкурентный товар.",
+    supLabel:"Поставщики ячменя в Китай, 2023", supUnit:"млн т",
+    suppliers:[["Франция",3.67],["Канада",2.27],["Аргентина",2.14],["Австралия",1.53],["Казахстан",0.80]],
+    kz:"Входит в топ‑10 экспортёров мира. Крупнейшие покупатели казахстанского ячменя — Иран (№1) и Китай (№2), затем Узбекистан. Поставки в КНР: пик 931 тыс. т в 2023/24, затем 451 (2024/25) и 373 тыс. т (2025/26); на китайском рынке давят Франция, Аргентина, Канада и вернувшаяся Австралия.",
+    access:"Квоты нет, ввоз свободный по низкой пошлине — «самая открытая дверь».",
+    lever:{bt:"Австралия → Китай",bm:"~2,5–3 млн т/год",at:"после пошлин 2020",am:"≈ 0",
+      txt:"Австралия была поставщиком ячменя №1. Пошлины КНР ~80% в 2020–2023 обнулили её экспорт — окно заняли другие, включая Казахстан. В августе 2023 пошлины сняли, Австралия вернулась — рынок уплотнился."},
+    note:"Импорт — средневзвешенно за 5 сезонов (сглаживает рекорд ~13–14 млн т в 2023/24). Доли поставщиков — по 2023 г. (всего 11,3 млн т). Экспорт ячменя КЗ → КНР (сент.–авг.): 2022/23 — 597 тыс. т; 2023/24 — 931; 2024/25 — 451; 2025/26 — 373 тыс. т. Крупнейший рынок казахстанского ячменя в целом — Иран (569 тыс. т за сент. 2025 – май 2026), Китай — №2 (295 тыс. т за тот же период)." },
+
+  rapeseed:{ name:"Рапс", cat:"oil", tier:"core", win:"growing",
+    metric:{big:"22%", tone:"china", lbl:"мировой торговли рапсом приходится на Китай — он остаётся крупным покупателем"},
+    worldProd:83, chinaProd:16, chinaImp:4.5, impShare:22,
+    take:"Китай и сам крупный производитель, но остаётся заметным покупателем семени — около пятой части мировой торговли (импорт 4,5–5 млн т, спад до ~3 в 2025/26). Окно для Казахстана — не столько сырьё, сколько масло и шрот по мере роста переработки.",
+    supLabel:"Крупнейшие экспортёры рапса", supUnit:"млн т · общий объём экспорта в разрезе стран",
+    suppliers:[["Канада",7.5],["Австралия",5.5],["Украина",3.0],["Россия",1.3],["Румыния",0.8]],
+    kz:"Пока малый экспортёр семени; ставка — переработка (масло, шрот) по мере роста МЭЗ. Диверсификационный мотив Китая («не зависеть почти на 97% от Канады») — долгосрочный шанс.",
+    access:"Протокол по рапсовому шроту — Сиань, май 2018; по семени рапса — действует.",
+    lever:{bt:"Канада → Китай",bm:"~94–97% рапса КНР",at:"после пошлин 2025",am:"доля падает",
+      txt:"Почти весь рапс (в последние годы до 97%) Китай брал у Канады. Пошлины 2025–2026 (100% на масло и шрот с 20.03.2025; депозит 75,8% по семени с 14.08.2025) качнули рынок к другим поставщикам, приоткрыв окно, в том числе Казахстану."},
+    note:"Импорт семени рапса КНР: 5,5 (2023/24) → 4,5 (2024/25) → ~3,1 (прогноз 2025/26). Собственное производство ~16 млн т, поэтому доля импорта умереннее." },
+
+  flax:{ name:"Лён", cat:"oil", tier:"core", win:"strong",
+    metric:{big:"топ‑2", tone:"kz", lbl:"Казахстан — в двойке крупнейших экспортёров льна в мире (с Россией)"},
+    worldProd:3.0, chinaProd:0.35, chinaImp:0.96, impShare:40,
+    take:"Китай — крупнейший покупатель льна в мире. Два основных поставщика — Казахстан и Россия (вместе ~97% ввоза).",
+    supLabel:"Поставщики льна в Китай", supUnit:"млн т · Казахстан — 0,43 (в Китай за 9 мес. 2025/26); Россия — оценка",
+    suppliers:[["Россия",0.50],["Казахстан",0.43],["Канада",0.03]],
+    kz:"Один из двух крупнейших экспортёров льна в мире (с Россией). В 2025/26 Китай впервые стал крупнейшим рынком казахстанского льна — ~429 тыс. т за 9 мес., почти в 2,5 раза больше прошлого года. Структурно устойчивая ниша.",
+    access:"Протокол по льносемени действует. Доля Китая ~40% мирового ввоза по объёму.",
+    note:"Экспорт льна КЗ → КНР (сент.–авг.): 2019/20 — 104 тыс. т; 2022/23 — 334; 2023/24 — 121; 2024/25 — 194; 2025/26 — ~429 тыс. т за 9 мес. (сент.2025–май2026), почти ×2,5 г/г (полный сезон оценочно ~0,58 млн т). Общий экспорт льна КЗ 2025/26 — рекорд 1,08 млн т (Китай 40%, Бельгия 28%). РФ+КЗ ≈97% импорта льна КНР. Данные zol.ru; столбцы поставщиков — оценка." },
+
+  peas:{ name:"Горох", cat:"pulse", tier:"core", win:"growing",
+    metric:{big:"35%", tone:"china", lbl:"мировой торговли горохом приходилось на Китай в пиковые годы. Свой урожай спрос не покрывает"},
+    worldProd:14, chinaProd:1.4, chinaImp:1.8, impShare:35,
+    take:"Крупный импортный рынок гороха (~1,8 млн т средневзвешенно за 5 лет, пик 2,22 в 2023/24; в 2024 спад до ~1,4) — ввоз больше собственного урожая (~1,4 млн т). Уход Канады по 100% пошлине (март 2025) — прямое окно для Казахстана.",
+    supLabel:"Поставщики гороха в Китай, 2023/24", supUnit:"млн т",
+    suppliers:[["Россия",1.09],["Канада",0.96],["США",0.08],["Австралия",0.05],["Франция",0.04]],
+    kz:"Протокол подписан (Сиань, 17 мая 2023). Есть большой потенциал при условии наличия объёмов.",
+    access:"Протокол по гороху — Сиань, 17.05.2023; пошлины нет.",
+    lever:{bt:"Канада → Китай",bm:"~43% рынка гороха",at:"после пошлин 2025",am:"окно для КЗ/РФ",
+      txt:"С 20 марта 2025 КНР ввела 100% пошлину на канадский горох — освободилось ~43% рынка, который делят Россия, Украина и Казахстан."},
+    note:"Китай долго был крупнейшим импортёром гороха; в 2024 №1 стала Индия (беспошлинный ввоз жёлтого гороха). Доля Китая в мировом импорте — оценка (~35% в пиковый год). Собственное производство КНР — около 1,4 млн т сухого гороха (оценка FAOSTAT, сверить). Точный объём КЗ→КНР пока не выделен статистикой." },
+
+  feedflour:{ name:"Кормовая мука", cat:"proc", tier:"core", win:"strong",
+    metric:{big:"3,7", unit:"млн т", tone:"kz", lbl:"кормовой муки Казахстан отправил в Китай за сезон 2025/26"},
+    chinaImp:3.7,
+    take:"Главная экспортная история: в 2018/19 поставок не было совсем, в 2024/25 — 2,23 млн т, в 2025/26 — 3,70 млн т (+66%). Кормовая мука растёт каждый сезон.",
+    supLabel:null, suppliers:null,
+    kz:"Взрывной рост: 0,77 млн т (2023/24) → 2,23 (2024/25) → 3,70 (2025/26). Почти вся кормовая мука КЗ идёт в Китай (>99%).",
+    access:"Нулевая пошлина на кормовую муку — против 65% внеквотной пошлины на пшеницу.",
+    note:"Экспорт КЗ → КНР по маркетинговым годам (сент.–авг.): 2019/20 — 2 тыс. т; 2020/21 — 22; 2021/22 — 30; 2022/23 — 117; 2023/24 — 772 тыс. т; 2024/25 — 2,23 млн т; 2025/26 — 3,70 млн т. Ранее звучали ограничения КНР на муку из российской пшеницы — на сцене подавать осторожно." },
+
+  // ---- прочие позиции ----
+  corn:{ name:"Кукуруза", cat:"grain", tier:"other", win:"context",
+    metric:{big:"↓", tone:"ink", lbl:"дверь закрывается регуляторно, а не по спросу"},
+    worldProd:1200, chinaProd:295, chinaImp:18, impShare:10,
+    take:"Импорт волатилен: рекорд ~28 млн т (2021), ~14 (2024), обвал в 2025 (за 1П — всего 0,8 млн т; за год — оценка ~8) — из‑за рекордного урожая и госзапасов, а не спроса. Средневзвешенно за 5 лет ~18 млн т. Для КЗ — не рынок сырой кукурузы.",
+    supLabel:"Поставщики кукурузы в Китай, 2024", supUnit:"млн т",
+    suppliers:[["Бразилия",6.4],["США",2.0],["прочие",5.2]],
+    kz:"Неконкурентен по сырой кукурузе: Синьцзян профицитен, Бразилия морем дешевле, чем КЗ по рельсам. Ниша — только non‑GMO / переработка. Деприоритет.",
+    access:"Объём импорта в рамках тарифной квоты — 7,2 млн т (всё остальное +65%); ~60% квоты — за госкомпаниями.",
+    note:"Импорт КНР — средневзвешенно за 5 лет ~18 млн т (2024 — 13,6; 2025 обвал: 1П всего 0,785 млн т, −93% г/г). Доля в мировой торговле ~10% (в 2025 — около 4%). Разбивка поставщиков — 2024, всего 13,6 млн т." },
+
+  rice:{ name:"Рис", cat:"grain", tier:"other", win:"context",
+    metric:{big:"7%", tone:"china", lbl:"мировой торговли — Китай самообеспечен"},
+    worldProd:520, chinaProd:146, chinaImp:4, impShare:7,
+    take:"Крупнейший производитель наравне с Индией. Самообеспечен — импорт невелик и символичен.",
+    supLabel:"Крупнейшие экспортёры риса", supUnit:"млн т · общий объём экспорта в разрезе стран",
+    suppliers:[["Индия",18],["Таиланд",7.5],["Вьетнам",7],["Пакистан",4.5],["США",2.8]],
+    kz:"Казахстан рис на экспорт практически не поставляет.",
+    access:"Объём импорта в рамках тарифной квоты — 5,32 млн т (всё остальное +65%); ~50% квоты — за госкомпаниями.",
+    note:"Производство и торговля — в пересчёте на обрушенный (milled) рис." },
+
+  lentils:{ name:"Чечевица", cat:"pulse", tier:"other", win:"niche",
+    metric:{big:"мал", tone:"ink", lbl:"рынок КНР для чечевицы мал, но растёт"},
+    chinaImp:0.02,
+    take:"Китайский рынок чечевицы пока мал, но быстро растёт: из Казахстана в КНР ушло ~20 тыс. т за 9 мес. 2025/26 (год назад — 1 тыс. т). Казахстан — рекордный экспортёр (2025/26 ~470 тыс. т), но ~88% идёт в Турцию.",
+    supLabel:"Поставщики чечевицы в Китай", supUnit:"тыс. т",
+    suppliers:[["Казахстан",20],["США",4],["Турция",3],["Мьянма",2]],
+    kz:"Для КЗ чечевица — крупный экспортный товар (главный рынок — Турция), но канал в Китай растёт от низкой базы.",
+    access:"Протокол по чечевице — Сиань, 17.05.2023.",
+    note:"В китайском перечне допуска по чечевице указан только Казахстан, но фактический импорт КНР невелик и идёт также из США/Турции/Мьянмы по другим линиям — тезис «только Казахстан» на сцене не утверждать. Данные UkrAgroConsult." },
+
+  chickpeas:{ name:"Нут", cat:"pulse", tier:"other", win:"niche",
+    metric:{big:"мал", tone:"ink", lbl:"Китай — минорный импортёр нута"},
+    chinaImp:0.025,
+    take:"Китайский рынок нута крошечный (~25 тыс. т). Для Казахстана приоритетнее горох и масло.",
+    supLabel:"Поставщики нута в Китай", supUnit:"тыс. т",
+    suppliers:[["Турция",12],["Индия",8]],
+    kz:"Нишевая/незначимая позиция по нуту в КНР.",
+    access:"Допуск есть.",
+    note:"Мировая торговля нутом >2 млн т, доля Китая — доли процента. На мировом рынке растёт Россия." },
+
+  safflower:{ name:"Сафлор", cat:"oil", tier:"other", win:"niche",
+    metric:{big:"№1", tone:"kz", lbl:"Казахстан — главный поставщик сафлора в Китай"},
+    chinaImp:0.046,
+    take:"Узкая и волатильная ниша: импорт КНР ~111 тыс. т (2023) → ~46 тыс. т (2024). Казахстан де‑факто доминирует в поставках, но объёмы малы и скачут год к году.",
+    supLabel:"Поставщики сафлора в Китай", supUnit:"тыс. т",
+    suppliers:[["Казахстан",46],["Индия",1]],
+    kz:"Де‑факто главный поставщик сафлора в КНР, но рынок мелкий и сильно колеблется.",
+    access:"В перечне допуска по сафлору — Казахстан и Индия.",
+    note:"Рынок крошечный и волатильный (обвал −59% в 2024). Данные IndexBox; формальный список origin отдельным первоисточником не подтверждён." },
+
+  sunseed:{ name:"Семена подсолнечника", cat:"oil", tier:"other", win:"niche",
+    metric:{big:"ниша", tone:"ink", lbl:"КНР ввозит семечку меньше, чем масло"},
+    take:"Семечку Китай ввозит существенно меньше, чем масло. Казахстан экспортирует и семена, но приоритет — переработка в масло.",
+    supLabel:null, suppliers:null,
+    kz:"КЗ поставляет семена, но выгоднее продавать масло и шрот (добавленная стоимость).",
+    access:"Допуск есть.",
+    note:"Конкретный объём импорта семечки КНР в открытых источниках не выделен." },
+
+  sunmeal:{ name:"Подсолнечный шрот", cat:"proc", tier:"other", win:"growing",
+    metric:{big:"9%", tone:"kz", lbl:"импорта подсолнечного шрота КНР — Казахстан"},
+    chinaImp:1.67,
+    take:"Импорт удвоился в 2025/26 (~1,67 млн т за 7 мес.) как замена канадскому канола‑шроту. Единственный шротовый рынок, где Казахстан уже физически присутствует и растёт.",
+    supLabel:"Поставщики шрота в Китай, 2025/26", supUnit:"тыс. т",
+    suppliers:[["Украина",1200],["Россия",182],["Казахстан",154],["Болгария",133]],
+    kz:"Действующий поставщик №3, доля выросла с 5% до 9%. Растущая ниша — приоритет среди шротов.",
+    access:"Поставки идут; доступ действует.",
+    note:"Оценка объёма из подтверждённых долей (Украина 72%)." },
+
+  rapemeal:{ name:"Рапсовый шрот", cat:"proc", tier:"other", win:"growing",
+    metric:{big:"окно", tone:"exp", lbl:"уход Канады освобождает ~2 млн т"},
+    chinaImp:2.74,
+    take:"Китай — крупный импортёр рапсового шрота (~2,74 млн т), из которых ~73% давала Канада. Пошлина 100% на Канаду (2025) открыла дефицит — окно для Казахстана, если нарастит объёмы.",
+    supLabel:"Поставщики рапс‑шрота в Китай, 2024", supUnit:"млн т",
+    suppliers:[["Канада",2.02],["ОАЭ",0.5],["Россия",0.135],["Индия",0.013]],
+    kz:"Пока не в топ‑поставщиках; объёмы нишевые. Окно расширяется из‑за ухода Канады.",
+    access:"Протокол по рапсовому шроту — Сиань, май 2018.",
+    lever:{bt:"Канада → Китай",bm:"~73% шрота КНР",at:"после пошлин 2025",am:"дефицит ~2 млн т",
+      txt:"Канада давала ~73% импорта рапсового шрота. 100% пошлина 2025 обвалила её поставки — рынок ищет замену (ОАЭ, Россия, Индия, потенциально Казахстан)."},
+    note:"Всего ~2,74 млн т (2024). Индия в Китай в 2024 дала лишь ~13 тыс. т (её экспортный потенциал ~2 млн т — на другие рынки)." },
+
+  soymeal:{ name:"Соевый шрот", cat:"proc", tier:"other", win:"context",
+    metric:{big:"—", tone:"ink", lbl:"рынка импорта шрота почти нет"},
+    take:"Китай ввозит соевые бобы (№1 в мире) и перерабатывает их сам, а шрот почти не импортирует. Для казахстанского соевого шрота места практически нет.",
+    supLabel:null, suppliers:null,
+    kz:"Рынка нет — Китай самодостаточен по помолу сои. Исключить из приоритетов.",
+    access:"Формально допуск есть, но спроса на импортный шрот нет.",
+    note:"Китай — по сути нетто‑экспортёр соевого шрота." },
+
+  beetpulp:{ name:"Свекловичный жом", cat:"proc", tier:"other", win:"niche",
+    metric:{big:"мал", tone:"ink", lbl:"узкий рынок, занят Египтом и Россией"},
+    chinaImp:0.43,
+    take:"Узкий кормовой рынок (~0,43 млн т), почти полностью занятый Египтом и Россией (~99%). Для Казахстана — минор.",
+    supLabel:"Поставщики жома в Китай, 2023", supUnit:"тыс. т",
+    suppliers:[["Египет",218],["Россия",215],["Украина",3.3]],
+    kz:"Отсутствует/минорна.",
+    access:"Формально допущено.",
+    note:"Историческое доминирование ЕС сместилось к Египту/России." },
+
+  alfalfa:{ name:"Люцерновое сено", cat:"proc", tier:"other", win:"niche",
+    metric:{big:"~1,4", unit:"млн т", tone:"china", lbl:"Китай — крупнейший импортёр люцерны в мире"},
+    chinaImp:1.4,
+    take:"Крупный рынок: Китай — №1 импортёр люцерны в мире. Крупнейший поставщик — США (937 тыс. т в 2024). Спрос под давлением: убыточность молочных хозяйств КНР, сокращение стада. Для КЗ — emerging, не быстрый.",
+    supLabel:"Поставщики люцерны в Китай, 2024", supUnit:"тыс. т",
+    suppliers:[["США",937],["Испания",300],["прочие",160]],
+    kz:"Развивающийся минорный игрок, не в топе.",
+    access:"Люцерновое сено допущено.",
+    note:"США поставили в КНР 937 тыс. т в 2024 (это 44% всего экспорта США, а не доля в импорте КНР). Совокупный импорт КНР — оценка ~1,2–1,4 млн т (уточнить по UN Comtrade). Испания — крупный поставщик, особенно гранул." }
+};
+
+const CORE=["soy","wheat","barley","rapeseed","flax","peas","feedflour"];
+const ALL=["soy","wheat","barley","rapeseed","flax","peas","feedflour","corn","rice","lentils","chickpeas","safflower","sunseed","sunmeal","rapemeal","soymeal","beetpulp","alfalfa"];
+const CATS={grain:"Зерно",oil:"Масличные",pulse:"Бобовые",proc:"Переработка и корма"};
+const WINLBL={strong:"Сильная позиция КЗ",growing:"Окно открывается",niche:"Ниша / малый рынок",context:"Контекст рынка"};
+let current="soy", filter="all";
+
+const nf=(n)=>{const r=Math.round(n*100)/100;let s=(Number.isInteger(r)?r.toString():r.toFixed(r<1?2:1));return s.replace(".",",").replace(/\B(?=(\d{3})+(?!\d))/g," ");};
+const el=id=>document.getElementById(id);
+
+// ---- core tabs ----
+const tabsEl=el("tabs");
+CORE.forEach(k=>{const b=document.createElement("button");b.className="tab";b.type="button";b.setAttribute("role","tab");b.dataset.k=k;
+  b.innerHTML=`<span class="dot"></span>${DATA[k].name}`;
+  b.addEventListener("click",()=>select(k));tabsEl.appendChild(b);});
+
+// ---- filters ----
+const fEl=el("filters");
+[["all","Все"],["grain","Зерно"],["oil","Масличные"],["pulse","Бобовые"],["proc","Переработка и корма"]].forEach(([k,lbl])=>{
+  const b=document.createElement("button");b.className="fchip";b.type="button";b.dataset.f=k;b.textContent=lbl;
+  b.addEventListener("click",()=>{filter=k;buildGrid();});fEl.appendChild(b);});
+
+// ---- compact grid ----
+function buildGrid(){
+  const cg=el("cardgrid");cg.innerHTML="";
+  document.querySelectorAll(".fchip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f===filter));
+  ALL.filter(k=>filter==="all"||DATA[k].cat===filter).forEach(k=>{
+    const d=DATA[k];const m=d.metric;
+    const b=document.createElement("button");b.className="mini"+(k===current?" on":"");b.type="button";b.dataset.k=k;
+    b.innerHTML=`<div class="mtop"><span class="mname">${d.name}</span><span class="badge ${d.win}">${WINLBL[d.win]}</span></div>
+      <div><span class="mmetric ${m.tone}">${m.big}${m.unit?" "+m.unit:""}</span></div>
+      <div class="mlbl">${m.lbl}</div>
+      <div class="mkz">${d.kz}</div>`;
+    b.addEventListener("click",()=>select(k));cg.appendChild(b);});
+}
+
+function select(k){ current=k; location.hash=k; render();
+  document.querySelector(".hero").scrollIntoView({behavior:"smooth",block:"start"}); }
+
+function render(){
+  const d=DATA[current], m=d.metric;
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.k===current));
+  document.querySelectorAll(".mini").forEach(t=>t.classList.toggle("on",t.dataset.k===current));
+
+  el("h-crop").textContent=d.name;
+  el("h-kicker").textContent = CATS[d.cat];
+  const bd=el("h-badge"); bd.className="badge "+d.win; bd.textContent=WINLBL[d.win];
+  const hs=el("h-share"); hs.textContent=m.big+(m.unit?" "+m.unit:""); hs.className=m.tone;
+  el("h-sharelbl").textContent=m.lbl;
+  el("h-take").textContent=d.take;
+
+  // split bar only when China world-import share is meaningful
+  if(typeof d.impShare==="number" && m.tone==="china" && /%$/.test(m.big)){
+    el("h-splitwrap").hidden=false; el("h-splitlbl").hidden=false;
+    el("h-split").textContent=d.impShare>=8?d.impShare+"%":"";
+    requestAnimationFrame(()=>{el("h-split").style.width=Math.max(d.impShare,3)+"%";});
+  } else { el("h-splitwrap").hidden=true; el("h-splitlbl").hidden=true; }
+
+  // produce vs import
+  if(typeof d.chinaProd==="number" && typeof d.chinaImp==="number"){
+    el("c-vs").hidden=false;
+    const vmax=Math.max(d.chinaProd,d.chinaImp);
+    const setBar=(id,val)=>{const e=el(id);const pct=vmax?val/vmax*100:0;e.classList.toggle("full",pct>78);
+      requestAnimationFrame(()=>{e.style.width=Math.max(pct,1.5)+"%";});e.querySelector("b").textContent=nf(val);};
+    setBar("vs-prod",d.chinaProd);setBar("vs-imp",d.chinaImp);
+    const ratio=d.chinaProd?(d.chinaImp/d.chinaProd):0;
+    el("vs-cap").textContent = d.chinaImp>d.chinaProd
+      ? `Импорт ${ratio>=1.8?"в "+nf(ratio)+"× больше":"больше"} собственного производства — зависимость от импорта.`
+      : "Производство кратно больше импорта — самообеспечен.";
+  } else el("c-vs").hidden=true;
+
+  // suppliers
+  if(d.suppliers && d.suppliers.length){
+    el("c-sup").hidden=false;
+    el("sup-h").textContent=d.supLabel||"Кто поставляет / конкурирует";
+    el("sup-sub").textContent=(d.supUnit||"млн т");
+    const emax=Math.max(...d.suppliers.map(p=>p[1]));
+    const pl=el("plist");pl.innerHTML="";
+    d.suppliers.forEach(([c,v])=>{const row=document.createElement("div");row.className="prow"+(c==="Казахстан"?" kz":"");
+      row.innerHTML=`<div class="c">${c}</div><div class="track"><div class="fill" style="width:0%"></div></div><div class="v">${nf(v)}</div>`;
+      pl.appendChild(row);requestAnimationFrame(()=>{row.querySelector(".fill").style.width=(v/emax*100)+"%";});});
+    el("sup-cap").textContent = d.suppliers.some(p=>p[0]==="Казахстан")
+      ? "Золотым выделен Казахстан среди поставщиков в Китай."
+      : "Экспортёров на каждую культуру немного, и любой из них заменим. Незаменим — покупатель.";
+  } else el("c-sup").hidden=true;
+
+  el("kz-line").textContent=d.kz;
+  el("access-line").textContent=d.access||"—";
+
+  // stats (adaptive)
+  const st=[];
+  if(typeof d.worldProd==="number") st.push(["Мировое произв.",nf(d.worldProd),"млн т",""]);
+  if(typeof d.chinaProd==="number") st.push(["Произв. КНР",nf(d.chinaProd),"млн т",""]);
+  if(typeof d.chinaImp==="number") st.push(["Импорт КНР",nf(d.chinaImp),"млн т","china"]);
+  if(typeof d.impShare==="number") st.push(["Доля КНР в импорте",d.impShare+"%","мир",""]);
+  el("stats").hidden = st.length===0;
+  el("stats").innerHTML=st.map(s=>`<div class="stat ${s[3]}"><div class="k">${s[0]}</div><div class="v">${s[1]} <span class="u">${s[2]}</span></div></div>`).join("");
+
+  // lever
+  const lev=el("lever");
+  if(d.lever){lev.hidden=false;
+    el("lv-bt").textContent=d.lever.bt;el("lv-bm").textContent=d.lever.bm;
+    el("lv-at").textContent=d.lever.at;el("lv-am").textContent=d.lever.am;
+    el("lever-txt").textContent=d.lever.txt;}else lev.hidden=true;
+
+  el("foot-note").textContent=d.note||"";
+}
+
+const root=document.documentElement;
+el("theme").addEventListener("click",()=>{const cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");root.setAttribute("data-theme",cur==="dark"?"light":"dark");});
+const h=(location.hash||"").replace("#","");if(ALL.includes(h))current=h;
+buildGrid();render();
+</script>
+
+</body></html>
